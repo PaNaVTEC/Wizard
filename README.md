@@ -2,7 +2,7 @@
 ![Logo](art/logo.png)
 
 ##Importing to your project
-Add dependency to your build.gradle file:
+Add this dependency to your build.gradle file:
 
 ```java
 NOT PUBLISHED YET
@@ -47,7 +47,7 @@ You can get the current fragment by calling "getCurrentFragment"
 ##Advanced usage
 
 ###Animation transitions
-You can declare animations for enter/exit fragments when creating Wizard in this way:
+You can declare animations for entering/exiting fragments when creating Wizard in this way:
 
 ```java
 new Wizard.Builder()
@@ -82,7 +82,7 @@ new Wizard.Builder()
 ```
 
 ###Customize ActionBar in navigation
-In wizard page you can override method "setupActionBar" for customize your actionbar on each navigated fragment, ex:
+In the wizard page you can override method "setupActionBar" to customize your actionbar on each navigated fragment, ex:
 
 ```java
 @Override public void setupActionBar(ActionBar supportActionBar) {
