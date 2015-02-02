@@ -5,9 +5,9 @@
 Add this dependency to your build.gradle file:
 
 ```java
-NOT PUBLISHED YET
 dependencies {
-    compile 'me.panavtec.wizard:1.0.0'
+    compile 'me.panavtec:wizard:1.0.0'
+}
 ```
 ##Basic usage
 
@@ -27,11 +27,11 @@ Create a wizard in your activity in this way:
 @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new Wizard.Builder()
-                .activity(this)
-                .pageList(new WizardPage[]{
-                        new WizardPage1(),
-                })
-                .build();
+            .activity(this)
+            .pageList(new WizardPage[]{
+                    new WizardPage1(),
+            }).build();
+        ...
 ...
 ```
 
@@ -51,18 +51,18 @@ You can declare animations for entering/exiting fragments when creating Wizard i
 
 ```java
 new Wizard.Builder()
-                .activity(this)
-                .containerId(android.R.id.content)
-                .enterAnimation(R.anim.card_slide_right_in)
-                .exitAnimation(R.anim.card_slide_left_out)
-                .popEnterAnimation(R.anim.card_slide_left_in)
-                .popExitAnimation(R.anim.card_slide_right_out)
-                .pageList(new WizardPage[]{
-                        new WizardPage1(),
-                        new WizardPage2(),
-                        new WizardPage3()
-                })
-                .build();
+        .activity(this)
+        .containerId(android.R.id.content)
+        .enterAnimation(R.anim.card_slide_right_in)
+        .exitAnimation(R.anim.card_slide_left_out)
+        .popEnterAnimation(R.anim.card_slide_left_in)
+        .popExitAnimation(R.anim.card_slide_right_out)
+        .pageList(new WizardPage[]{
+                new WizardPage1(),
+                new WizardPage2(),
+                new WizardPage3()
+        })
+        .build();
 ```
 
 This xml animations are uploaded to the sample project.
@@ -73,11 +73,11 @@ if you don't set the containerId attribute, Wizard uses android.R.id.content by 
 
 ```java
 new Wizard.Builder()
-                .activity(this)
-                .containerId(R.id.my_container)
-                .pageList(new WizardPage[]{
-                        new WizardPage1(),
-                })
+        .activity(this)
+        .containerId(R.id.my_container)
+        .pageList(new WizardPage[]{
+                new WizardPage1(),
+        })
 
 ```
 
@@ -86,9 +86,9 @@ In the wizard page you can override method "setupActionBar" to customize your ac
 
 ```java
 @Override public void setupActionBar(ActionBar supportActionBar) {
-        super.setupActionBar(supportActionBar);
-        supportActionBar.hide();
-    }
+    super.setupActionBar(supportActionBar);
+    supportActionBar.hide();
+}
 ```
 
 In this example when the fragment is navigated, the actionbar will be hidden. 
@@ -105,21 +105,18 @@ If you are using Dagger in your project I suggest to use Wizard in this way.
 ```java
 @Provides @Singleton Wizard provideWizard(ActionBarActivity activity,
                                               SampleWizardPage page) {
-        return new Wizard.Builder()
-                .activity(activity)
-                .containerId(android.R.id.content)
-                .pageList(new WizardPage[]{
-                        page,
-                        ...
-                })
-                .build();
-    }
+    return new Wizard.Builder()
+            .activity(activity)
+            .containerId(android.R.id.content)
+            .pageList(new WizardPage[]{
+                    page,
+                    ...
+            }).build();
+}
     
-    @Provides @Singleton SampleWizardPage provideSampleWizardPage(ActionBarActivity activity) {
-        return new SampleWizardPage(activity);
-    }
-
-    
+@Provides @Singleton SampleWizardPage provideSampleWizardPage(ActionBarActivity activity) {
+    return new SampleWizardPage(activity);
+}
 ```
 
 **Activity**:
@@ -128,9 +125,9 @@ If you are using Dagger in your project I suggest to use Wizard in this way.
 @Inject Wizard wizard;
 
 @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        wizard.init();
-        }
+    super.onCreate(savedInstanceState);
+    wizard.init();
+}
 ```
 
 **Fragment**:
@@ -139,6 +136,23 @@ If you are using Dagger in your project I suggest to use Wizard in this way.
 @Inject Wizard wizard;
 
 @Override protected void someOnClickAction() {
-        wizard.navigateNext();
-        }
+    wizard.navigateNext();
+}
 ```
+
+License
+=======
+
+    Copyright 2015 Christian Panadero Martinez
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
