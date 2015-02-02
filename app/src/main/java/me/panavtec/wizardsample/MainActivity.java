@@ -13,7 +13,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new Wizard.Builder()
+        wizard = new Wizard.Builder()
                 .activity(this)
                 .containerId(android.R.id.content)
                 .enterAnimation(R.anim.card_slide_right_in)
