@@ -15,6 +15,19 @@ allprojects {
     version = VERSION_NAME
     group = GROUP
 
+    ext {
+        // Android config
+        androidBuildToolsVersion = '21.1.2'
+        androidMinSdkVersion = 9
+        androidTargetSdkVersion = 21
+        androidCompileSdkVersion = 21
+        androidVersionCode = VERSION_CODE.toInteger()
+        androidVersionName = VERSION_NAME
+
+        // Libraries
+        libAppcompat = 'com.android.support:appcompat-v7:21.0.3'
+    }
+
     repositories {
         jcenter()
     }

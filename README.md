@@ -1,12 +1,13 @@
-#Android Wizard [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android%20Wizard-green.svg?style=flat)](https://android-arsenal.com/details/1/1469)
+#Android Wizard [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android%20Wizard-green.svg?style=flat)](https://android-arsenal.com/details/1/1469) ![Maven Central](https://img.shields.io/maven-central/v/me.panavtec/wizard.svg)
 ![Logo](art/logo.png)
+
 
 ##Importing to your project
 Add this dependency to your build.gradle file:
 
 ```java
 dependencies {
-    compile 'me.panavtec:wizard:1.0.0'
+    compile 'me.panavtec:wizard:{Lib version, see the mvn central badge}'
 }
 ```
 ##Basic usage
@@ -25,13 +26,13 @@ Create a wizard in your activity in this way:
 
 ```java
 @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        new Wizard.Builder()
-            .activity(this)
-            .pageList(new WizardPage[]{
-                    new WizardPage1(),
-            }).build();
-        ...
+    super.onCreate(savedInstanceState);
+    new Wizard.Builder()
+        .activity(this)
+        .pageList(new WizardPage[]{
+                new WizardPage1(),
+        }).build();
+    ...
 ...
 ```
 
@@ -97,6 +98,17 @@ In this example when the fragment is navigated, the actionbar will be hidden.
 
 If you have a Fragment that uses actionbar option menus, you can override "hasOptionMenu" and return true to invalidate the option menus when navigating.
 
+###Blocking Fragment
+
+Do you need to block the back navigation of your wizard in determinate steps? It's so easy, just override "allowsBackNavigation" in your WizardPage and add this in your activity:
+
+```java
+@Override public void onBackPressed() {
+    if (wizard.onBackPressed()) {
+        super.onBackPressed();
+    }
+}
+```
 
 ###Dagger Tips
 If you are using Dagger in your project I suggest to use Wizard in this way.

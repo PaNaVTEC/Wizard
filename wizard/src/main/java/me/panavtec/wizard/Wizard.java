@@ -63,6 +63,10 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
         return false;
     }
 
+    public boolean onBackPressed() {
+        return getCurrentPage().allowsBackNavigation();
+    }
+
     public boolean navigateNext() {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         int nextStep = fragmentManager.getBackStackEntryCount() + 1;
@@ -79,6 +83,10 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
             return true;
         }
         return false;
+    }
+
+    private WizardPage getCurrentPage() {
+        return pages[activity.getSupportFragmentManager().getBackStackEntryCount()];
     }
 
     public Fragment getCurrent() {

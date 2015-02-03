@@ -14,4 +14,8 @@ public abstract class WizardPage<T extends Fragment> {
         return false;
     }
 
+    public boolean allowsBackNavigation() {
+        return true;
+    }
+
 }
