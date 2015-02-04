@@ -152,6 +152,10 @@ If you are using Dagger in your project I suggest to use Wizard in this way.
 }
 ```
 
+Developed by
+============
+Christian Panadero Martinez - <a href="http://panavtec.me">http://panavtec.me</a> - <a href="https://twitter.com/panavtec">@PaNaVTEC</a>
+
 License
 =======
 
