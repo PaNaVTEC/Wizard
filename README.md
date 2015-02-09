@@ -1,5 +1,6 @@
 #Android Wizard 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android%20Wizard-green.svg?style=flat)](https://android-arsenal.com/details/1/1469) ![Maven Central](https://img.shields.io/maven-central/v/me.panavtec/wizard.svg)
+
 ![Logo](art/logo.png)
 
 ##Sample app
