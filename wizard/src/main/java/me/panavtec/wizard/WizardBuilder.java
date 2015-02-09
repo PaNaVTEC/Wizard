@@ -58,12 +58,12 @@ public class WizardBuilder {
     public Wizard build() {
 
         if (pages == null || pages.length == 0) {
-            throw new RuntimeException("No page list configured or empty. If you dont " +
+            throw new RuntimeException("No page list configured or empty. If you don't " +
                     "have pages why you need Merlin?");
         }
 
         if (activity == null) {
-            throw new RuntimeException("No activity configured, Wizard needs an Acitivty to work. " +
+            throw new RuntimeException("No activity configured, Wizard needs an Activity to work. " +
                     "set activity with builder.activity(activity)");
         }
 

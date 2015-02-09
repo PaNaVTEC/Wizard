@@ -93,6 +93,10 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
         return activity.getSupportFragmentManager().findFragmentById(containerId);
     }
 
+    public int getCurrentIndex(){
+        return activity.getSupportFragmentManager().getBackStackEntryCount();
+    }
+
     @Override public void onBackStackChanged() {
         int currentPageIndex = activity.getSupportFragmentManager().getBackStackEntryCount();
         WizardPage currentPage = pages[currentPageIndex];
