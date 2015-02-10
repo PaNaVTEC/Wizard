@@ -116,7 +116,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     }
 
     public static class Builder extends WizardBuilder {
-        public Builder(ActionBarActivity activity, WizardPage[] pages) {
+        public Builder(ActionBarActivity activity, WizardPage... pages) {
             super(activity, pages);
         }
     }
