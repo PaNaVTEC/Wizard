@@ -18,7 +18,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     private final int popEnterAnimation;
     private final int popExitAnimation;
     private final WizardPageListener pageListener;
-    private WizardListener wizardListener;
+    private final WizardListener wizardListener;
 
     protected Wizard(ActionBarActivity activity, WizardPage[] pages, int containerId, WizardPageListener pageListener,
                      WizardListener wizardListener, int enterAnimation, int exitAnimation, int popEnterAnimation, int popExitAnimation) {
