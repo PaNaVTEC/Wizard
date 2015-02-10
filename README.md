@@ -27,11 +27,8 @@ Create a wizard in your activity in this way:
 ```java
 @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    new Wizard.Builder()
-        .activity(this)
-        .pageList(new WizardPage[]{
-                new WizardPage1(),
-        }).build();
+        wizard = new Wizard.Builder(this, new WizardPage1())
+        .build();
     ...
 ...
 ```
@@ -51,18 +48,13 @@ You can get the current fragment by calling "getCurrentFragment"
 You can declare animations for entering/exiting fragments when creating Wizard in this way:
 
 ```java
-new Wizard.Builder()
-        .activity(this)
+WizardPage[] wizardPages = { new WizardPage1(), new WizardPage2(), new WizardPage3() };
+new Wizard.Builder(this, wizardPages)
         .containerId(android.R.id.content)
         .enterAnimation(R.anim.card_slide_right_in)
         .exitAnimation(R.anim.card_slide_left_out)
         .popEnterAnimation(R.anim.card_slide_left_in)
         .popExitAnimation(R.anim.card_slide_right_out)
-        .pageList(new WizardPage[]{
-                new WizardPage1(),
-                new WizardPage2(),
-                new WizardPage3()
-        })
         .build();
 ```
 
@@ -108,6 +100,27 @@ Do you need to block the back navigation of your wizard in determinate steps? It
         super.onBackPressed();
     }
 }
+```
+###Listeners
+You can declare listeners for page changed and for wizard finished events:
+
+```java
+WizardPage[] wizardPages = { new WizardPage1(), new WizardPage2(), new WizardPage3() };
+new Wizard.Builder(this, wizardPages)
+        .containerId(android.R.id.content)
+        .pageListener(new WizardPageListener() {
+            @Override
+            public void onPageChanged(int currentPageIndex, WizardPage page) {
+                //Your code for page changed
+            }
+        })
+        .wizardListener(new WizardListener() {
+            @Override
+            public void onWizardFinished() {
+                //Your code for wizard finished
+            }
+        })
+        .build();
 ```
 
 ###Dagger Tips
