@@ -83,12 +83,10 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
                     .commit();
             fragmentManager.executePendingTransactions();
             return true;
-        } else {
-            if (wizardListener != null) {
-                wizardListener.onWizardFinished();
-            }
-            return false;
+        } else if (wizardListener != null) {
+            wizardListener.onWizardFinished();
         }
+        return false;
     }
 
     private WizardPage getCurrentPage() {
