@@ -12,17 +12,18 @@ public class WizardBuilder {
     private int popEnterAnimation;
     private int popExitAnimation;
     private WizardPageListener pageListener;
+    private WizardListener wizardListener;
 
-    public WizardBuilder() { }
-
-    public WizardBuilder activity(ActionBarActivity activity) {
+    public WizardBuilder(ActionBarActivity activity, WizardPage[] pages) {
+        if (activity == null) {
+            throw new IllegalArgumentException("Activity must not be null.");
+        }
         this.activity = activity;
-        return this;
-    }
 
-    public WizardBuilder pageList(WizardPage[] pages) {
+        if (pages == null) {
+            throw new IllegalArgumentException("Pages must not be null.");
+        }
         this.pages = pages;
-        return this;
     }
 
     public WizardBuilder containerId(int containerId) {
@@ -55,6 +56,11 @@ public class WizardBuilder {
         return this;
     }
 
+    public WizardBuilder wizardListener(WizardListener wizardListener) {
+        this.wizardListener = wizardListener;
+        return this;
+    }
+
     public Wizard build() {
 
         if (pages == null || pages.length == 0) {
@@ -68,11 +74,10 @@ public class WizardBuilder {
         }
 
         if (containerId == 0) {
-            throw new RuntimeException("No container id configured. Sample config: " +
-                    "builder.setContainerId(android.R.id.content)");
+            containerId = android.R.id.content;
         }
 
-        return new Wizard(activity, pages, containerId, pageListener,
+        return new Wizard(activity, pages, containerId, pageListener, wizardListener,
                 enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation);
     }
 
