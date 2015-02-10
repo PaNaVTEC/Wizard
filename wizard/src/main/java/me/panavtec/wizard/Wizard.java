@@ -18,13 +18,15 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     private final int popEnterAnimation;
     private final int popExitAnimation;
     private final WizardPageListener pageListener;
+    private final WizardListener wizardListener;
 
     protected Wizard(ActionBarActivity activity, WizardPage[] pages, int containerId, WizardPageListener pageListener,
-                     int enterAnimation, int exitAnimation, int popEnterAnimation, int popExitAnimation) {
+                     WizardListener wizardListener, int enterAnimation, int exitAnimation, int popEnterAnimation, int popExitAnimation) {
         this.activity = activity;
         this.pages = pages;
-        this.containerId = containerId == 0 ? android.R.id.content : containerId;
+        this.containerId = containerId;
         this.pageListener = pageListener;
+        this.wizardListener = wizardListener;
         this.enterAnimation = enterAnimation;
         this.exitAnimation = exitAnimation;
         this.popEnterAnimation = popEnterAnimation;
@@ -81,8 +83,12 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
                     .commit();
             fragmentManager.executePendingTransactions();
             return true;
+        } else {
+            if (wizardListener != null) {
+                wizardListener.onWizardFinished();
+            }
+            return false;
         }
-        return false;
     }
 
     private WizardPage getCurrentPage() {
@@ -110,6 +116,9 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     }
 
     public static class Builder extends WizardBuilder {
+        public Builder(ActionBarActivity activity, WizardPage[] pages) {
+            super(activity, pages);
+        }
     }
 
 }
