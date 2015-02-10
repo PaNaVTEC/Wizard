@@ -14,7 +14,7 @@ public class WizardBuilder {
     private WizardPageListener pageListener;
     private WizardListener wizardListener;
 
-    public WizardBuilder(ActionBarActivity activity, WizardPage[] pages) {
+    public WizardBuilder(ActionBarActivity activity, WizardPage... pages) {
         if (activity == null) {
             throw new IllegalArgumentException("Activity must not be null.");
         }
