@@ -53,8 +53,7 @@ You can get the current fragment by calling "getCurrentFragment"
 You can declare animations for entering/exiting fragments when creating Wizard in this way:
 
 ```java
-WizardPage[] wizardPages = { new WizardPage1(), new WizardPage2(), new WizardPage3() };
-new Wizard.Builder(this, wizardPages)
+new Wizard.Builder(this, new WizardPage1(), new WizardPage2(), new WizardPage3())
         .containerId(android.R.id.content)
         .enterAnimation(R.anim.card_slide_right_in)
         .exitAnimation(R.anim.card_slide_left_out)
@@ -70,13 +69,8 @@ This xml animations are uploaded to the sample project.
 if you don't set the containerId attribute, Wizard uses android.R.id.content by default but you can personalize a custom container by calling:
 
 ```java
-new Wizard.Builder()
-        .activity(this)
+new Wizard.Builder(this, new WizardPage1())
         .containerId(R.id.my_container)
-        .pageList(new WizardPage[]{
-                new WizardPage1(),
-        })
-
 ```
 
 ###Customize ActionBar in navigation
@@ -135,13 +129,9 @@ If you are using Dagger in your project I suggest to use Wizard in this way.
 ```java
 @Provides @Singleton Wizard provideWizard(ActionBarActivity activity,
                                               SampleWizardPage page) {
-    return new Wizard.Builder()
-            .activity(activity)
+    return new Wizard.Builder(activity, page)
             .containerId(android.R.id.content)
-            .pageList(new WizardPage[]{
-                    page,
-                    ...
-            }).build();
+            .build();
 }
     
 @Provides @Singleton SampleWizardPage provideSampleWizardPage(ActionBarActivity activity) {

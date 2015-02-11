@@ -16,8 +16,7 @@ public class MainActivity extends ActionBarActivity implements WizardPageListene
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        WizardPage[] wizardPages = { new WizardPage1(), new WizardPage2(), new WizardPage3() };
-        wizard = new Wizard.Builder(this, wizardPages)
+        wizard = new Wizard.Builder(this, new WizardPage1(), new WizardPage2(), new WizardPage3())
                 .containerId(android.R.id.content)
                 .enterAnimation(R.anim.card_slide_right_in)
                 .exitAnimation(R.anim.card_slide_left_out)
