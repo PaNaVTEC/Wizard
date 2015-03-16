@@ -35,33 +35,39 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
   }
 
   public void init() {
-    FragmentManager fragmentManager = activity.getSupportFragmentManager();
-    fragmentManager.addOnBackStackChangedListener(this);
-    WizardPage firstPage = pages[0];
-    fragmentManager.beginTransaction().replace(containerId, firstPage.createFragment()).commit();
-    fragmentManager.executePendingTransactions();
-    if (firstPage.hasOptionMenu()) {
-      activity.supportInvalidateOptionsMenu();
+    if (!activity.isFinishing()) {
+      FragmentManager fragmentManager = activity.getSupportFragmentManager();
+      fragmentManager.addOnBackStackChangedListener(this);
+      WizardPage firstPage = pages[0];
+      fragmentManager.beginTransaction().replace(containerId, firstPage.createFragment()).commit();
+      fragmentManager.executePendingTransactions();
+      if (firstPage.hasOptionMenu()) {
+        activity.supportInvalidateOptionsMenu();
+      }
+      firstPage.setupActionBar(activity.getSupportActionBar());
     }
-    firstPage.setupActionBar(activity.getSupportActionBar());
   }
 
   public boolean returnToFirst() {
-    FragmentManager fragmentManager = activity.getSupportFragmentManager();
-    if (fragmentManager.getBackStackEntryCount() > 0) {
-      String name = fragmentManager.getBackStackEntryAt(0).getName();
-      fragmentManager.popBackStackImmediate(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-      return true;
+    if (!activity.isFinishing()) {
+      FragmentManager fragmentManager = activity.getSupportFragmentManager();
+      if (fragmentManager.getBackStackEntryCount() > 0) {
+        String name = fragmentManager.getBackStackEntryAt(0).getName();
+        fragmentManager.popBackStackImmediate(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        return true;
+      }
     }
     return false;
   }
 
   public boolean navigatePrevious() {
-    FragmentManager fragmentManager = activity.getSupportFragmentManager();
-    if (fragmentManager.getBackStackEntryCount() > 0) {
-      fragmentManager.popBackStackImmediate();
-      fragmentManager.executePendingTransactions();
-      return true;
+    if (!activity.isFinishing()) {
+      FragmentManager fragmentManager = activity.getSupportFragmentManager();
+      if (fragmentManager.getBackStackEntryCount() > 0) {
+        fragmentManager.popBackStackImmediate();
+        fragmentManager.executePendingTransactions();
+        return true;
+      }
     }
     return false;
   }
@@ -71,20 +77,22 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
   }
 
   public boolean navigateNext() {
-    FragmentManager fragmentManager = activity.getSupportFragmentManager();
-    int nextStep = fragmentManager.getBackStackEntryCount() + 1;
-    if (nextStep < pages.length) {
-      WizardPage WizardPage = pages[nextStep];
-      Fragment fragment = WizardPage.createFragment();
-      fragmentManager.beginTransaction()
-          .addToBackStack(fragment.getClass().getName())
-          .setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation)
-          .replace(containerId, fragment)
-          .commit();
-      fragmentManager.executePendingTransactions();
-      return true;
-    } else if (wizardListener != null) {
-      wizardListener.onWizardFinished();
+    if (!activity.isFinishing()) {
+      FragmentManager fragmentManager = activity.getSupportFragmentManager();
+      int nextStep = fragmentManager.getBackStackEntryCount() + 1;
+      if (nextStep < pages.length) {
+        WizardPage WizardPage = pages[nextStep];
+        Fragment fragment = WizardPage.createFragment();
+        fragmentManager.beginTransaction()
+            .addToBackStack(fragment.getClass().getName())
+            .setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation)
+            .replace(containerId, fragment)
+            .commit();
+        fragmentManager.executePendingTransactions();
+        return true;
+      } else if (wizardListener != null) {
+        wizardListener.onWizardFinished();
+      }
     }
     return false;
   }
