@@ -1,10 +1,12 @@
 package me.panavtec.wizard;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 public class WizardBuilder {
 
-    private ActionBarActivity activity;
+    private FragmentActivity activity;
     private WizardPage[] pages;
     private int containerId;
     private int enterAnimation;
@@ -13,12 +15,19 @@ public class WizardBuilder {
     private int popExitAnimation;
     private WizardPageListener pageListener;
     private WizardListener wizardListener;
+    private ActionBarResolver actionBarResolver;
 
-    public WizardBuilder(ActionBarActivity activity, WizardPage... pages) {
+    public WizardBuilder(FragmentActivity activity, WizardPage... pages) {
         if (activity == null) {
             throw new IllegalArgumentException("Activity must not be null.");
         }
         this.activity = activity;
+
+        if (activity instanceof ActionBarActivity) {
+          this.actionBarResolver = new ActionBarActivityResolver(((ActionBarActivity) activity));
+        } else if(activity instanceof AppCompatActivity) {
+          this.actionBarResolver = new AppCompactActivityResolver(((AppCompatActivity) activity));
+        }
 
         if (pages == null) {
             throw new IllegalArgumentException("Pages must not be null.");
@@ -77,7 +86,7 @@ public class WizardBuilder {
             containerId = android.R.id.content;
         }
 
-        return new Wizard(activity, pages, containerId, pageListener, wizardListener,
+        return new Wizard(actionBarResolver, activity, pages, containerId, pageListener, wizardListener,
                 enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation);
     }
 

@@ -1,8 +1,9 @@
 package me.panavtec.wizard;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 
 /**
  * Encapsulates navigation operations between fragments of an activity using BackStack
@@ -10,7 +11,7 @@ import android.support.v7.app.ActionBarActivity;
  */
 public class Wizard implements FragmentManager.OnBackStackChangedListener {
 
-    private final ActionBarActivity activity;
+    private final FragmentActivity activity;
     private final WizardPage[] pages;
     private final int containerId;
     private final int enterAnimation;
@@ -19,9 +20,11 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     private final int popExitAnimation;
     private final WizardPageListener pageListener;
     private final WizardListener wizardListener;
+    private final ActionBar actionBar;
 
-    protected Wizard(ActionBarActivity activity, WizardPage[] pages, int containerId, WizardPageListener pageListener,
-                     WizardListener wizardListener, int enterAnimation, int exitAnimation, int popEnterAnimation, int popExitAnimation) {
+    protected Wizard(ActionBarResolver actionBarResolver, FragmentActivity activity, WizardPage[] pages, int containerId, WizardPageListener pageListener,
+        WizardListener wizardListener, int enterAnimation, int exitAnimation, int popEnterAnimation,
+        int popExitAnimation) {
         this.activity = activity;
         this.pages = pages;
         this.containerId = containerId;
@@ -31,6 +34,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
         this.exitAnimation = exitAnimation;
         this.popEnterAnimation = popEnterAnimation;
         this.popExitAnimation = popExitAnimation;
+        this.actionBar = actionBarResolver.getActionBar();
     }
 
     public void init() {
@@ -42,7 +46,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
         if (firstPage.hasOptionMenu()) {
             activity.supportInvalidateOptionsMenu();
         }
-        firstPage.setupActionBar(activity.getSupportActionBar());
+        firstPage.setupActionBar(actionBar);
     }
 
     public boolean returnToFirst() {
@@ -78,7 +82,8 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
             fragmentManager
                     .beginTransaction()
                     .addToBackStack(fragment.getClass().getName())
-                    .setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation)
+                    .setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation,
+                        popExitAnimation)
                     .replace(containerId, fragment)
                     .commit();
             fragmentManager.executePendingTransactions();
@@ -106,7 +111,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     @Override public void onBackStackChanged() {
         int currentPageIndex = activity.getSupportFragmentManager().getBackStackEntryCount();
         WizardPage currentPage = pages[currentPageIndex];
-        currentPage.setupActionBar(activity.getSupportActionBar());
+        currentPage.setupActionBar(actionBar);
         if (currentPage.hasOptionMenu()) {
             activity.supportInvalidateOptionsMenu();
         }
@@ -116,7 +121,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     }
 
     public static class Builder extends WizardBuilder {
-        public Builder(ActionBarActivity activity, WizardPage... pages) {
+        public Builder(FragmentActivity activity, WizardPage... pages) {
             super(activity, pages);
         }
     }

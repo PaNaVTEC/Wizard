@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.1'
+        classpath 'com.android.tools.build:gradle:1.1.0'
     }
 }
 
@@ -19,13 +19,13 @@ allprojects {
         // Android config
         androidBuildToolsVersion = '21.1.2'
         androidMinSdkVersion = 9
-        androidTargetSdkVersion = 21
-        androidCompileSdkVersion = 21
+        androidTargetSdkVersion = 22
+        androidCompileSdkVersion = 22
         androidVersionCode = VERSION_CODE.toInteger()
         androidVersionName = VERSION_NAME
 
         // Libraries
-        libAppcompat = 'com.android.support:appcompat-v7:21.0.3'
+        libAppcompat = 'com.android.support:appcompat-v7:22.1.0'
     }
 
     repositories {
