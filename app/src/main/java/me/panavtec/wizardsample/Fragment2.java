@@ -11,28 +11,26 @@ import android.widget.Button;
 
 public class Fragment2 extends Fragment {
 
-    private Button goNextButton;
-    private Button goBackButton;
+  private Button goNextButton;
+  private Button goBackButton;
 
-    @Override public View onCreateView(LayoutInflater inflater,
-                                       @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment, container, false);
-        view.setBackgroundColor(Color.BLUE);
-        goNextButton = (Button) view.findViewById(R.id.goNextButton);
-        goBackButton = (Button) view.findViewById(R.id.goBackButton);
-        goNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                ((MainActivity) getActivity()).getWizard().navigateNext();
-            }
-        });
-        goBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                ((MainActivity) getActivity()).getWizard().navigatePrevious();
-            }
-        });
-        return view;
-    }
-
-
+  @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fragment, container, false);
+    view.setBackgroundColor(Color.BLUE);
+    goNextButton = (Button) view.findViewById(R.id.goNextButton);
+    goBackButton = (Button) view.findViewById(R.id.goBackButton);
+    goNextButton.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        ((MainActivity) getActivity()).getWizard().navigateNext();
+      }
+    });
+    goBackButton.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        ((MainActivity) getActivity()).getWizard().navigatePrevious();
+      }
+    });
+    return view;
+  }
 }
 
