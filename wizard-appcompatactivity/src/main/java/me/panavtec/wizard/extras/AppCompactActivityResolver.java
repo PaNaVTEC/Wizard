@@ -1,7 +1,8 @@
-package me.panavtec.wizard.actionbar;
+package me.panavtec.wizard.extras;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import me.panavtec.wizard.actionbar.ActionBarResolver;
 
 public class AppCompactActivityResolver implements ActionBarResolver {
   private AppCompatActivity appCompatActivity;

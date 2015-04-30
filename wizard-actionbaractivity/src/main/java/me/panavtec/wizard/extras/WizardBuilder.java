@@ -1,6 +1,8 @@
-package me.panavtec.wizard;
+package me.panavtec.wizard.extras;
 
 import android.support.v7.app.ActionBarActivity;
+import me.panavtec.wizard.BaseWizardBuilder;
+import me.panavtec.wizard.WizardPage;
 import me.panavtec.wizard.actionbar.ActionBarResolver;
 
 public class WizardBuilder extends BaseWizardBuilder<ActionBarActivity> {

@@ -1,8 +1,9 @@
-package me.panavtec.wizard;
+package me.panavtec.wizard.extras;
 
 import android.support.v7.app.AppCompatActivity;
+import me.panavtec.wizard.BaseWizardBuilder;
+import me.panavtec.wizard.WizardPage;
 import me.panavtec.wizard.actionbar.ActionBarResolver;
-import me.panavtec.wizard.actionbar.AppCompactActivityResolver;
 
 public class WizardBuilder extends BaseWizardBuilder<AppCompatActivity> {
   public WizardBuilder(AppCompatActivity activity, WizardPage... pages) {

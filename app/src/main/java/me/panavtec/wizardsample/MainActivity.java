@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import me.panavtec.wizard.Wizard;
-import me.panavtec.wizard.WizardBuilder;
 import me.panavtec.wizard.WizardListener;
 import me.panavtec.wizard.WizardPage;
 import me.panavtec.wizard.WizardPageListener;
+import me.panavtec.wizard.extras.WizardBuilder;
 
 public class MainActivity extends AppCompatActivity implements WizardPageListener, WizardListener {
 
