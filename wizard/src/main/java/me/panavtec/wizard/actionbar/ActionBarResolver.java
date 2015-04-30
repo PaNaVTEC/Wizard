@@ -1,4 +1,4 @@
-package me.panavtec.wizard;
+package me.panavtec.wizard.actionbar;
 
 import android.support.v7.app.ActionBar;
 

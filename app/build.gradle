@@ -27,4 +27,6 @@ android {
 dependencies {
     compile parent.ext.libAppcompat
     compile project(':wizard')
+    compile project(':wizard-appcompatactivity')
+
 }

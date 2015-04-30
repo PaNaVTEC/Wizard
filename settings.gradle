@@ -1,1 +1,1 @@
-include ':app', ':wizard'
+include ':app', ':wizard', ':wizard-appcompatactivity', ':wizard-actionbaractivity'

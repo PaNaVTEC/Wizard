@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
+import me.panavtec.wizard.actionbar.ActionBarResolver;
 
 /**
  * Encapsulates navigation operations between fragments of an activity using BackStack
@@ -47,7 +48,13 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     if (firstPage.hasOptionMenu()) {
       activity.supportInvalidateOptionsMenu();
     }
-    firstPage.setupActionBar(actionBar);
+    setupPageActionBar(firstPage);
+  }
+
+  private void setupPageActionBar(WizardPage wizardPage) {
+    if (actionBar != null) {
+      wizardPage.setupActionBar(actionBar);
+    }
   }
 
   public boolean returnToFirst() {
@@ -110,7 +117,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
   @Override public void onBackStackChanged() {
     int currentPageIndex = activity.getSupportFragmentManager().getBackStackEntryCount();
     WizardPage currentPage = pages[currentPageIndex];
-    currentPage.setupActionBar(actionBar);
+    setupPageActionBar(currentPage);
     if (currentPage.hasOptionMenu()) {
       activity.supportInvalidateOptionsMenu();
     }
@@ -119,9 +126,4 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
     }
   }
 
-  public static class Builder extends WizardBuilder {
-    public Builder(FragmentActivity activity, WizardPage... pages) {
-      super(activity, pages);
-    }
-  }
 }

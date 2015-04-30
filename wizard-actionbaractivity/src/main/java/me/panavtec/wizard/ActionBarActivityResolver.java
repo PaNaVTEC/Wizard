@@ -2,6 +2,7 @@ package me.panavtec.wizard;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import me.panavtec.wizard.actionbar.ActionBarResolver;
 
 public class ActionBarActivityResolver implements ActionBarResolver {
   private final ActionBarActivity actionBarActivity;

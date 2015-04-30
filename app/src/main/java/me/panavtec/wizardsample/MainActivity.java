@@ -1,14 +1,15 @@
 package me.panavtec.wizardsample;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import me.panavtec.wizard.Wizard;
+import me.panavtec.wizard.WizardBuilder;
 import me.panavtec.wizard.WizardListener;
 import me.panavtec.wizard.WizardPage;
 import me.panavtec.wizard.WizardPageListener;
 
-public class MainActivity extends ActionBarActivity implements WizardPageListener, WizardListener {
+public class MainActivity extends AppCompatActivity implements WizardPageListener, WizardListener {
 
   private Wizard wizard;
 
@@ -16,7 +17,7 @@ public class MainActivity extends ActionBarActivity implements WizardPageListene
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     WizardPage[] wizardPages = { new WizardPage1(), new WizardPage2(), new WizardPage3() };
-    wizard = new Wizard.Builder(this, wizardPages).containerId(android.R.id.content)
+    wizard = new WizardBuilder(this, wizardPages).containerId(android.R.id.content)
         .enterAnimation(R.anim.card_slide_right_in)
         .exitAnimation(R.anim.card_slide_left_out)
         .popEnterAnimation(R.anim.card_slide_left_in)
