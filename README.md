@@ -12,7 +12,7 @@ Add this dependency to your build.gradle file:
 
 ```java
 dependencies {
-    compile 'me.panavtec:wizard:{Lib version, see the mvn central badge}'
+    compile 'me.panavtec:wizard:1.2'
 }
 ```
 ##Basic usage
