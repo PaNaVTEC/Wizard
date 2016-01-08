@@ -1,11 +1,12 @@
 package me.panavtec.wizard;
 
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 
 public class WizardBuilder {
 
-  private ActionBarActivity activity;
-  private WizardPage[] pages;
+  private final FragmentActivity activity;
+  private final WizardPage[] pages;
+  private final ActionBarResolver actionBarResolver;
   private int containerId;
   private int enterAnimation;
   private int exitAnimation;
@@ -14,16 +15,27 @@ public class WizardBuilder {
   private WizardPageListener pageListener;
   private WizardListener wizardListener;
 
-  public WizardBuilder(ActionBarActivity activity, WizardPage... pages) {
+  public WizardBuilder(FragmentActivity activity, ActionBarResolver actionBarResolver,
+      WizardPage... pages) {
     if (activity == null) {
       throw new IllegalArgumentException("Activity must not be null.");
     }
     this.activity = activity;
 
+    if (actionBarResolver == null) {
+      throw new IllegalArgumentException(
+          "ActionBarResolver must be provided, if you don't have any operations you can use the other constructor.");
+    }
+    this.actionBarResolver = actionBarResolver;
+
     if (pages == null) {
       throw new IllegalArgumentException("Pages must not be null.");
     }
     this.pages = pages;
+  }
+
+  public WizardBuilder(FragmentActivity activity, WizardPage... pages) {
+    this(activity, new ReflectionActionBarResolver(activity), pages);
   }
 
   public WizardBuilder containerId(int containerId) {
@@ -62,22 +74,16 @@ public class WizardBuilder {
   }
 
   public Wizard build() {
-
-    if (pages == null || pages.length == 0) {
+    if (pages.length == 0) {
       throw new RuntimeException(
           "No page list configured or empty. If you don't " + "have pages why you need Merlin?");
-    }
-
-    if (activity == null) {
-      throw new RuntimeException("No activity configured, Wizard needs an Activity to work. "
-          + "set activity with builder.activity(activity)");
     }
 
     if (containerId == 0) {
       containerId = android.R.id.content;
     }
 
-    return new Wizard(activity, pages, containerId, pageListener, wizardListener, enterAnimation,
-        exitAnimation, popEnterAnimation, popExitAnimation);
+    return new Wizard(activity, actionBarResolver, pages, containerId, pageListener, wizardListener,
+        enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation);
   }
 }

@@ -1,8 +1,9 @@
 package me.panavtec.wizard;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Encapsulates navigation operations between fragments of an activity using BackStack
@@ -10,7 +11,8 @@ import android.support.v7.app.ActionBarActivity;
  */
 public class Wizard implements FragmentManager.OnBackStackChangedListener {
 
-  private final ActionBarActivity activity;
+  private final FragmentActivity activity;
+  private final ActionBarResolver actionBarResolver;
   private final WizardPage[] pages;
   private final int containerId;
   private final int enterAnimation;
@@ -20,10 +22,11 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
   private final WizardPageListener pageListener;
   private final WizardListener wizardListener;
 
-  protected Wizard(ActionBarActivity activity, WizardPage[] pages, int containerId,
-      WizardPageListener pageListener, WizardListener wizardListener, int enterAnimation,
-      int exitAnimation, int popEnterAnimation, int popExitAnimation) {
+  protected Wizard(FragmentActivity activity, ActionBarResolver actionBarResolver, WizardPage[] pages, int containerId,
+      WizardPageListener pageListener, WizardListener wizardListener, int enterAnimation, int exitAnimation, int popEnterAnimation,
+      int popExitAnimation) {
     this.activity = activity;
+    this.actionBarResolver = actionBarResolver;
     this.pages = pages;
     this.containerId = containerId;
     this.pageListener = pageListener;
@@ -44,7 +47,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
       if (firstPage.hasOptionMenu()) {
         activity.supportInvalidateOptionsMenu();
       }
-      firstPage.setupActionBar(activity.getSupportActionBar());
+      firstPage.setupActionBar(actionBarResolver.getSupportActionBar());
     }
   }
 
@@ -112,7 +115,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
   @Override public void onBackStackChanged() {
     int currentPageIndex = activity.getSupportFragmentManager().getBackStackEntryCount();
     WizardPage currentPage = pages[currentPageIndex];
-    currentPage.setupActionBar(activity.getSupportActionBar());
+    currentPage.setupActionBar(actionBarResolver.getSupportActionBar());
     if (currentPage.hasOptionMenu()) {
       activity.supportInvalidateOptionsMenu();
     }
@@ -122,7 +125,7 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
   }
 
   public static class Builder extends WizardBuilder {
-    public Builder(ActionBarActivity activity, WizardPage... pages) {
+    public Builder(AppCompatActivity activity, WizardPage... pages) {
       super(activity, pages);
     }
   }
