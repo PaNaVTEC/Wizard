@@ -19,8 +19,8 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
   private final int exitAnimation;
   private final int popEnterAnimation;
   private final int popExitAnimation;
-  private final WizardPageListener pageListener;
-  private final WizardListener wizardListener;
+  private WizardPageListener pageListener;
+  private WizardListener wizardListener;
 
   protected Wizard(FragmentActivity activity, ActionBarResolver actionBarResolver, WizardPage[] pages, int containerId,
       WizardPageListener pageListener, WizardListener wizardListener, int enterAnimation, int exitAnimation, int popEnterAnimation,
@@ -49,6 +49,14 @@ public class Wizard implements FragmentManager.OnBackStackChangedListener {
       }
       firstPage.setupActionBar(actionBarResolver.getSupportActionBar());
     }
+  }
+
+  public void setPageListener(WizardPageListener pageListener) {
+    this.pageListener = pageListener;
+  }
+
+  public void setWizardListener(WizardListener wizardListener) {
+    this.wizardListener = wizardListener;
   }
 
   public boolean returnToFirst() {
